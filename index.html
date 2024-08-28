@@ -1,119 +1,373 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Project Title</title>
-<meta charset="utf-8">
-<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
-<style> @-ms-viewport { width: device-width; } </style>
-<link rel="stylesheet" href="vendor/reset.min.css">
-<link rel="stylesheet" href="style.css">
-</head>
-<body class="multiple-scenes ">
+  <head>
+    <title>Project Title</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <style>
+      @-ms-viewport {
+        width: device-width;
+      }
+      .swiper-wrapper .swiper-slide {
+        transform: scale(0.8) !important;
+        transition: all 0.3s;
+      }
+      .swiper-wrapper .swiper-slide.swiper-slide-active {
+        transform: scale(1) !important;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .swiper .swiper-pagination {
+        position: inherit;
+        margin-top: 12px;
+      }
+      .swiper .swiper-pagination .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+      }
+      .swiper
+        .swiper-pagination
+        .swiper-pagination-bullet.swiper-pagination-bullet-active {
+        width: 16px;
+        border-radius: 8px;
+        background-color: #000000;
+      }
+    </style>
+    <link rel="stylesheet" href="vendor/reset.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  </head>
+  <body class="multiple-scenes">
+    <div id="pano"></div>
 
-<div id="pano"></div>
+    <div id="sceneList">
+      <ul class="scenes">
+        <a href="javascript:void(0)" class="scene" data-id="0--1">
+          <li class="text">축사-통로1</li>
+        </a>
 
-<div id="sceneList">
-  <ul class="scenes">
-    
-      <a href="javascript:void(0)" class="scene" data-id="0--1">
-        <li class="text">축사-통로1</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="1--2">
-        <li class="text">축사-통로2</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="2--3">
-        <li class="text">축사-통로3</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="3-a-1-">
-        <li class="text">A-1 조감도</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="4-a-2--">
-        <li class="text">A-2 축사 입구</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="5-a-3--">
-        <li class="text">A-3 스마트팜 출입구</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="6-b-1-">
-        <li class="text">B-1 모돈사</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="7-b-2-">
-        <li class="text">B-2 분만사</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="8-b-3-">
-        <li class="text">B-3 자돈사</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="9-b-4-">
-        <li class="text">B-4 육성사</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="10-b-5-">
-        <li class="text">B-5 비육사</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="11-c-1--">
-        <li class="text">C-1 관리사무실 입구</li>
-      </a>
-    
-      <a href="javascript:void(0)" class="scene" data-id="12-c-2-">
-        <li class="text">C-2 관리사무실</li>
-      </a>
-    
-  </ul>
-</div>
+        <a href="javascript:void(0)" class="scene" data-id="1--2">
+          <li class="text">축사-통로2</li>
+        </a>
 
-<div id="titleBar">
-  <h1 class="sceneName"></h1>
-</div>
+        <a href="javascript:void(0)" class="scene" data-id="2--3">
+          <li class="text">축사-통로3</li>
+        </a>
 
-<a href="javascript:void(0)" id="autorotateToggle">
-  <img class="icon off" src="img/play.png">
-  <img class="icon on" src="img/pause.png">
-</a>
+        <a href="javascript:void(0)" class="scene" data-id="3-a-1-">
+          <li class="text">A-1 조감도</li>
+        </a>
 
-<a href="javascript:void(0)" id="fullscreenToggle">
-  <img class="icon off" src="img/fullscreen.png">
-  <img class="icon on" src="img/windowed.png">
-</a>
+        <a href="javascript:void(0)" class="scene" data-id="4-a-2--">
+          <li class="text">A-2 축사 입구</li>
+        </a>
 
-<a href="javascript:void(0)" id="sceneListToggle">
-  <img class="icon off" src="img/expand.png">
-  <img class="icon on" src="img/collapse.png">
-</a>
+        <a href="javascript:void(0)" class="scene" data-id="5-a-3--">
+          <li class="text">A-3 스마트팜 출입구</li>
+        </a>
 
-<a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
-  <img class="icon" src="img/up.png">
-</a>
-<a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2">
-  <img class="icon" src="img/down.png">
-</a>
-<a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3">
-  <img class="icon" src="img/left.png">
-</a>
-<a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4">
-  <img class="icon" src="img/right.png">
-</a>
-<a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5">
-  <img class="icon" src="img/plus.png">
-</a>
-<a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
-  <img class="icon" src="img/minus.png">
-</a>
+        <a href="javascript:void(0)" class="scene" data-id="6-b-1-">
+          <li class="text">B-1 모돈사</li>
+        </a>
 
-<script src="vendor/screenfull.min.js" ></script>
-<script src="vendor/bowser.min.js" ></script>
-<script src="vendor/marzipano.js" ></script>
+        <a href="javascript:void(0)" class="scene" data-id="7-b-2-">
+          <li class="text">B-2 분만사</li>
+        </a>
 
-<script src="data.js"></script>
-<script src="index.js"></script>
+        <a href="javascript:void(0)" class="scene" data-id="8-b-3-">
+          <li class="text">B-3 자돈사</li>
+        </a>
 
-</body>
+        <a href="javascript:void(0)" class="scene" data-id="9-b-4-">
+          <li class="text">B-4 육성사</li>
+        </a>
+
+        <a href="javascript:void(0)" class="scene" data-id="10-b-5-">
+          <li class="text">B-5 비육사</li>
+        </a>
+
+        <a href="javascript:void(0)" class="scene" data-id="11-c-1--">
+          <li class="text">C-1 관리사무실 입구</li>
+        </a>
+
+        <a href="javascript:void(0)" class="scene" data-id="12-c-2-">
+          <li class="text">C-2 관리사무실</li>
+        </a>
+      </ul>
+    </div>
+
+    <div
+      class="w-[350px] fixed inset-0 top-10 right-auto bg-white text-black flex-col hidden"
+      id="left-info"
+    >
+      <div class="grid grid-cols-3">
+        <div
+          class="border-b border-solid border-[#000000] h-10 flex items-center justify-center text-center"
+        >
+          장소A
+        </div>
+        <div
+          class="border-b border-solid border-[#AAAAAA] h-10 flex items-center justify-center text-center"
+        >
+          장소B
+        </div>
+        <div
+          class="border-b border-solid border-[#AAAAAA] h-10 flex items-center justify-center text-center"
+        >
+          장소C
+        </div>
+      </div>
+      <div class="px-5 flex items-center gap-2.5 h-10 shrink-0">
+        <div
+          class="h-6 flex items-center justify-center text-center text-xs rounded-full text-[#B3B3B3]"
+        >
+          장소A-1
+        </div>
+        <div
+          class="h-6 flex items-center justify-center text-center text-xs rounded-full bg-[#D9D9D9] text-black px-2"
+        >
+          장소A-2
+        </div>
+        <div
+          class="h-6 flex items-center justify-center text-center text-xs rounded-full text-[#B3B3B3]"
+        >
+          장소A-3
+        </div>
+      </div>
+      <div class="bg-[#E4E7E8] h-1"></div>
+      <div class="p-5">
+        <div class="text-base font-bold">모돈 자동급이기</div>
+        <div class="h-[150px] bg-[#E4E7E8] mt-1.5"></div>
+        <div class="swiper mySwiper mt-5">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div
+                class="h-[66px] flex items-center justify-center bg-[#E4E7E8] rounded-t px-2"
+              >
+                <img src="/img/logo1.png" alt="" />
+              </div>
+              <div
+                class="bg-[#F3F7F8] h-6 flex items-center justify-center text-center text-xs rounded-b"
+              >
+                엠트리센
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="h-[66px] flex items-center justify-center bg-[#E4E7E8] rounded-t px-2"
+              >
+                <img src="/img/logo2.png" alt="" />
+              </div>
+              <div
+                class="bg-[#F3F7F8] h-6 flex items-center justify-center text-center text-xs rounded-b"
+              >
+                애그리로보텍
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div
+                class="h-[66px] flex items-center justify-center bg-[#E4E7E8] rounded-t px-2"
+              >
+                <img src="/img/logo3.png" alt="" />
+              </div>
+              <div
+                class="bg-[#F3F7F8] h-6 flex items-center justify-center text-center text-xs rounded-b"
+              >
+                아이온텍
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+      <div class="bg-[#E4E7E8] h-1"></div>
+      <!-- Swiper -->
+      <div class="p-5 space-y-6 overflow-y-auto grow">
+        <div>
+          <div class="relative">
+            <div
+              class="text-sm text-[#b3b3b3] bg-white relative z-10 inline-flex pr-1"
+            >
+              업체 정보
+            </div>
+            <div
+              class="absolute top-1/2 right-0 left-0 h-[1px] bg-[#BFBFBF]"
+            ></div>
+          </div>
+          <div class="space-y-2 mt-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-[#b3b3b3]">제조사 / 등록기업</div>
+                <div class="text-sm mt-0.5" id="name">엠트리센 / 엠트리센</div>
+              </div>
+              <a
+                href="https://m3sen.com/ko"
+                target="_blank"
+                class="block text-xs !text-[#477FD2] underline"
+                id="link"
+                >바로가기</a
+              >
+            </div>
+            <div>
+              <div class="text-xs text-[#b3b3b3]">연락처</div>
+              <div class="text-sm mt-0.5" id="tell">02-6956-9413</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="relative">
+            <div
+              class="text-sm text-[#b3b3b3] bg-white relative z-10 inline-flex pr-1"
+            >
+              설비 정보
+            </div>
+            <div
+              class="absolute top-1/2 right-0 left-0 h-[1px] bg-[#BFBFBF]"
+            ></div>
+          </div>
+          <div class="space-y-2 mt-4">
+            <div>
+              <div class="text-xs text-[#b3b3b3]">표준장치명 / 모델명</div>
+              <div class="text-sm mt-0.5" id="model">
+                모돈 자동급이기 / DSN-V02
+              </div>
+            </div>
+            <div>
+              <div class="text-xs text-[#b3b3b3]">ICT장비 등록번호</div>
+              <div class="text-sm mt-0.5" id="ict">000.0000.0000</div>
+            </div>
+            <div>
+              <div class="text-xs text-[#b3b3b3]">주요 기능</div>
+              <div class="text-sm mt-0.5" id="feature">
+                3D 카메라를 통해 체형 데이터를 수집하고 이를 인공지능 분석하여
+                기반으로 개체별 급이량을 제어
+              </div>
+            </div>
+            <div>
+              <div class="text-xs text-[#b3b3b3]">구성</div>
+              <div class="text-sm mt-0.5" id="make">
+                임신모돈 전자식 자동급이기, 모돈 체형 측정 자동화 시스템, 3D
+                스캐너, 제어부
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="relative">
+            <div
+              class="text-sm text-[#b3b3b3] bg-white relative z-10 inline-flex pr-1"
+            >
+              ICT 정보
+            </div>
+            <div
+              class="absolute top-1/2 right-0 left-0 h-[1px] bg-[#BFBFBF]"
+            ></div>
+          </div>
+          <div class="space-y-2 mt-4">
+            <div>
+              <div class="text-xs text-[#b3b3b3]">수집 데이터</div>
+              <div class="text-sm mt-0.5" id="data">
+                모돈 체형 데이터 (등각, 등지방), 등각추위, 모돈일령, 발정 탐지,
+                급이설정량, 급이섭취량, 기립 횟수
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="relative">
+            <div
+              class="text-sm text-[#b3b3b3] bg-white relative z-10 inline-flex pr-1"
+            >
+              도입 시고려사항
+            </div>
+            <div
+              class="absolute top-1/2 right-0 left-0 h-[1px] bg-[#BFBFBF]"
+            ></div>
+          </div>
+          <div class="space-y-2 mt-4">
+            <div>
+              <div class="text-xs text-[#b3b3b3]">비용</div>
+              <div class="text-sm mt-0.5" id="price">3,950,000 원</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="titleBar">
+      <h1 class="sceneName"></h1>
+    </div>
+
+    <a href="javascript:void(0)" id="autorotateToggle">
+      <img class="icon off" src="img/play.png" />
+      <img class="icon on" src="img/pause.png" />
+    </a>
+
+    <a href="javascript:void(0)" id="fullscreenToggle">
+      <img class="icon off" src="img/fullscreen.png" />
+      <img class="icon on" src="img/windowed.png" />
+    </a>
+
+    <a href="javascript:void(0)" id="sceneListToggle">
+      <img class="icon off" src="img/expand.png" />
+      <img class="icon on" src="img/collapse.png" />
+    </a>
+
+    <a
+      href="javascript:void(0)"
+      id="viewUp"
+      class="viewControlButton viewControlButton-1"
+    >
+      <img class="icon" src="img/up.png" />
+    </a>
+    <a
+      href="javascript:void(0)"
+      id="viewDown"
+      class="viewControlButton viewControlButton-2"
+    >
+      <img class="icon" src="img/down.png" />
+    </a>
+    <a
+      href="javascript:void(0)"
+      id="viewLeft"
+      class="viewControlButton viewControlButton-3"
+    >
+      <img class="icon" src="img/left.png" />
+    </a>
+    <a
+      href="javascript:void(0)"
+      id="viewRight"
+      class="viewControlButton viewControlButton-4"
+    >
+      <img class="icon" src="img/right.png" />
+    </a>
+    <a
+      href="javascript:void(0)"
+      id="viewIn"
+      class="viewControlButton viewControlButton-5"
+    >
+      <img class="icon" src="img/plus.png" />
+    </a>
+    <a
+      href="javascript:void(0)"
+      id="viewOut"
+      class="viewControlButton viewControlButton-6"
+    >
+      <img class="icon" src="img/minus.png" />
+    </a>
+
+    <script src="vendor/screenfull.min.js"></script>
+    <script src="vendor/bowser.min.js"></script>
+    <script src="vendor/marzipano.js"></script>
+
+    <script src="data.js"></script>
+    <script src="index.js"></script>
+  </body>
 </html>
